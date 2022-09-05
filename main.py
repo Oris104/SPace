@@ -23,6 +23,9 @@ Field =  np.arange(numCols*numLines).reshape(numLines,numCols)
 
 
 
+def Printer():
+    print(str(Field).replace(", ", "").replace("[", "").replace("]", "").replace("\n", "").replace(" ", "").replace("0",
+    " ").replace("2", "A"))
 
 
 
@@ -62,15 +65,21 @@ class Chara():
         Field[self.x][self.y] = 0
         self.y -= 1
 i=0
-obj = Chara(0,0,2)
+obj = Chara(20,20,2)
 while 1:
 
-    obj.moveDown()
-    if i%3==0:
+    if i < 10:
+        obj.moveDown()
+    elif i< 20:
         obj.moveRight()
+    elif i< 30:
+        obj.moveUp()
+    elif i< 40:
+        obj.moveLeft()
+    else:
+        i=0
     i+=1
-    print(str(Field).replace(", ", "").replace("[", "").replace("]", "").replace("\n", "").replace(" ", "").replace("0",
-                                                                                                                        " "))
+    Printer()
     time.sleep(0.5)
 
 
