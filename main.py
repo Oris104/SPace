@@ -16,9 +16,10 @@ import time
 
 command = "mode 75,150"
 os.system(command)
+numLines =shutil.get_terminal_size().lines
+numCols =shutil.get_terminal_size().columns
 
-
-Field =  np.arange(shutil.get_terminal_size().columns*shutil.get_terminal_size().lines).reshape(shutil.get_terminal_size().lines,shutil.get_terminal_size().columns)
+Field =  np.arange(numCols*numLines).reshape(numLines,numCols)
 
 
 
