@@ -1,10 +1,14 @@
 # This is a sample Python script.
 import os
+import random
 import shutil
 import numpy as np
 import array
 import sys
 import time
+import GameEntities
+import math
+import keyboard
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
@@ -14,8 +18,10 @@ import time
 
 
 
-command = "mode 75,150"
+command = "mode 75,50"
+
 os.system(command)
+os.system('color 02')
 numLines =shutil.get_terminal_size().lines
 numCols =shutil.get_terminal_size().columns
 
@@ -25,7 +31,7 @@ Field =  np.arange(numCols*numLines).reshape(numLines,numCols)
 
 def Printer():
     print(str(Field).replace(", ", "").replace("[", "").replace("]", "").replace("\n", "").replace(" ", "").replace("0",
-    " ").replace("2", "A"))
+    " ").replace("2", "A").replace("4","V").replace("6","I")+"Score: "+str(score)+"  Lives: "+str(lives))
 
 
 
@@ -38,50 +44,60 @@ print(str(Field).replace(", ","").replace("[","").replace("]","").replace("\n","
 X=0
 y=0
 
-class Chara():
-    def __init__(self,x,y,val):
-        self.x=x
-        self.y=y
-        self.val=val
-        self.createAt()
 
-
-    def createAt(self):
-        Field[self.x][self.y]=self.val
-    def moveDown(self):
-        Field[self.x+1][self.y]= Field[self.x][self.y]
-        Field[self.x][self.y]=0
-        self.x+=1
-    def moveUp(self):
-        Field[self.x - 1][self.y] = Field[self.x][self.y]
-        Field[self.x][self.y] = 0
-        self.x -= 1
-    def moveRight(self):
-        Field[self.x][self.y+1] = Field[self.x][self.y]
-        Field[self.x][self.y] = 0
-        self.y += 1
-    def moveLeft(self):
-        Field[self.x][self.y-1] = Field[self.x][self.y]
-        Field[self.x][self.y] = 0
-        self.y -= 1
 i=0
-obj = Chara(20,20,2)
-while 1:
-
-    if i < 10:
-        obj.moveDown()
-    elif i< 20:
-        obj.moveRight()
-    elif i< 30:
-        obj.moveUp()
-    elif i< 40:
-        obj.moveLeft()
+enemies=[]
+projectiles=[]
+player=GameEntities.Player(49,30,Field)
+zc=0
+score =0
+lives = 5
+cd=0
+spwn =10
+while lives > 0:
+    if spwn >=40:
+        spwn =0
+        u = random.randint(0, numCols - 1)
+        enemies.append(GameEntities.Enemy(0, u, 4, Field))
     else:
-        i=0
-    i+=1
-    Printer()
-    time.sleep(0.5)
+        spwn +=1
+    if zc == 10:
+        zc=0
+        for it in enemies:
+            neo = it.tick()
+            if neo ==1:
+                score +=1
+                enemies.remove(it)
+            elif neo ==2:
+                enemies.remove(it)
+                lives +=-1
+    else:
+        zc += 1
 
+
+
+
+    if keyboard.is_pressed("space"):
+        if cd ==0:
+            projectiles.append(GameEntities.Projectile(48,player.y,6,Field))
+            cd =5
+    if cd>0:
+        cd+=-1
+
+
+
+    player.tick()
+
+    Printer()
+    for it in projectiles:
+        if it.x <=1:
+            projectiles.remove(it)
+        else:
+            it.tick()
+
+    time.sleep(0.05)
+print("game over")
+input()
 
 
 
