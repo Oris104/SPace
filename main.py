@@ -55,13 +55,13 @@ lives = 5
 cd=0
 spwn =10
 while lives > 0:
-    if spwn >=40:
+    if spwn >=20:
         spwn =0
         u = random.randint(0, numCols - 1)
         enemies.append(GameEntities.Enemy(0, u, 4, Field))
     else:
         spwn +=1
-    if zc == 10:
+    if zc == 5:
         zc=0
         for it in enemies:
             neo = it.tick()
@@ -80,6 +80,8 @@ while lives > 0:
     if keyboard.is_pressed("space"):
         if cd ==0:
             projectiles.append(GameEntities.Projectile(48,player.y,6,Field))
+            projectiles.append(GameEntities.Projectile(48, player.y+1, 6, Field))
+            projectiles.append(GameEntities.Projectile(48, player.y-1, 6, Field))
             cd =5
     if cd>0:
         cd+=-1

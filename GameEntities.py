@@ -23,12 +23,12 @@ class Chara():
         self.Field[self.x][self.y] = 0
         self.x -= 1
     def moveRight(self):
-        if self.y+1<=74:
+        if self.y+1<=73:
             self.Field[self.x][self.y+1] = self.Field[self.x][self.y]
             self.Field[self.x][self.y] = 0
             self.y += 1
     def moveLeft(self):
-        if self.y>0:
+        if self.y>1:
             self.Field[self.x][self.y-1] = self.Field[self.x][self.y]
             self.Field[self.x][self.y] = 0
             self.y -= 1
@@ -39,6 +39,7 @@ class Player(Chara):
     def shoot(self):
         pass
     def tick(self):
+        self.createAt()
         if keyboard.is_pressed("left"):
             self.moveLeft()
         if keyboard.is_pressed("right"):
@@ -56,7 +57,7 @@ class Enemy(Chara):
     def suicide(self):
         self.Field[self.x][self.y]=0
     def tick(self):
-        if self.x >= 48:
+        if self.x >= 49:
             self.suicide()
             return 2
         elif not self.Field[self.x][self.y]==self.val:
