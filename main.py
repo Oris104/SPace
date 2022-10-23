@@ -1,13 +1,12 @@
 # This is a sample Python script.
+
 import os
 import random
 import shutil
 import numpy as np
-import array
 import sys
 import time
 import GameEntities
-import math
 import keyboard
 
 # Press Shift+F10 to execute it or replace it with your code.
