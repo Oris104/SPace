@@ -41,7 +41,7 @@ class Player(Chara):  # Spielercharakter
         super().__init__(x, y, 2, Field)
         self.val = 2
 
-    def tick(self):
+    def tick(self):  # wenn Tick aufgerufen bewegt sich je nach gedrückter taste
         self.createAt()
         if keyboard.is_pressed("left"):
             self.moveLeft()
@@ -49,29 +49,31 @@ class Player(Chara):  # Spielercharakter
             self.moveRight()
 
 
-class Projectile(Chara):
-    def suicide(self):
+class Projectile(Chara):  # klasse des gefeuerten Projektils
+    def suicide(self):  # Löscht eigenen Wert aus Array
         self.Field[self.x][self.y] = 0
-        del (self)
+        del self
 
-    def tick(self):
+    def tick(self):  # wenn Tick aufgerufen bewegt sich nach oben, ausser wenn bereits oben dann Suizid
         if not self.x > 0:
             self.suicide()
         else:
             self.moveUp()
 
 
-class Enemy(Chara):
-    def suicide(self):
+class Enemy(Chara):  # Klasse der Gegener Objekte
+    def suicide(self):  # Klasse für selber Löschen
         self.Field[self.x][self.y] = 0
 
-    def tick(self):
-        if self.x >= 49:
+    def tick(self):  # wenn Tick aufgerugen bewegt sich nach unten ausser wen bereits unten
+        # oder wenn von Projektil getroffen
+        if self.x >= 49:  # wenn unten angekommen Selberlöschen und 2 zutück geben
             self.suicide()
             return 2
-        elif not self.Field[self.x][self.y] == self.val:
+        elif not self.Field[self.x][self.y] == self.val:  # wenn von Projektil getroffen
+            # selber löschen und 1 zurückgeben
             self.suicide()
             return 1
-        else:
+        else:  # sonst eine Zeile nach unten
             self.moveDown()
             return 0
