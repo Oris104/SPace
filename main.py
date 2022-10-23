@@ -1,5 +1,3 @@
-# This is a sample Python script.
-
 import os
 import random
 import shutil
@@ -8,10 +6,6 @@ import sys
 import time
 import GameEntities
 import keyboard
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
 
 command = "mode 75,50"  # Fenstergrösse einstellen
 
@@ -25,8 +19,8 @@ Field = np.arange(numCols * numLines).reshape(numLines, numCols)  # 2D Array mit
 
 def Printer():  # Gibt Spielfeld aus nachdem Array Werte mit zugehörigem Zeichen ersetzt wurden
     print(str(Field).replace(", ", "").replace("[", "").replace("]", "").replace("\n", "").replace(" ", "").replace("0",
-                                                                                                                    " ").replace(
-        "2", "A").replace("4", "V").replace("6", "I") + "Score: " + str(score) + "  Lives: " + str(lives))
+                                                                                                                    " ")
+          .replace("2", "A").replace("4", "V").replace("6", "I") + "Score: " + str(score) + "  Lives: " + str(lives))
 
 
 np.set_printoptions(threshold=sys.maxsize)  # Array Ausgabe einrichten
@@ -56,11 +50,11 @@ while lives > 0:  # Loop solange man noch Leben hat
     if enemyMov == 5:  # Alle 5 Ticks
         enemyMov = 0
         for it in enemies:  # Bei allen Gengner Objekten tick() aufrufen
-            rück = it.tick()  # Tick Rückgabe abfangen
-            if rück == 1:  # bei 1 gegner durch Projektil tod
+            rueck = it.tick()  # Tick Rückgabe abfangen
+            if rueck == 1:  # bei 1 gegner durch Projektil tod
                 score += 1  # Score erhöhen
                 enemies.remove(it)  # gegner entfernen
-            elif rück == 2:  # bei 2 gegner unten angekommen
+            elif rueck == 2:  # bei 2 gegner unten angekommen
                 enemies.remove(it)  # gegner entfernen
                 lives += - 1  # Leben abziehen
     else:
