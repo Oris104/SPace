@@ -9,15 +9,15 @@ import keyboard
 
 command = "mode 75,50"  # Fenstergrösse einstellen
 
-os.system(command)  # Fenstergrösse ausführen
+os.system(command)  # Fenstergröße ausführen
 os.system('color 02')  # Farbe konfigurieren
 numLines = shutil.get_terminal_size().lines  # anzahl Zeilen auslesen
-numCols = shutil.get_terminal_size().columns  # anzahl Kollonen auslesen
+numCols = shutil.get_terminal_size().columns  # anzahl Kolonen auslesen
 
-Field = np.arange(numCols * numLines).reshape(numLines, numCols)  # 2D Array mit Zeilen und Kollonen erstellen
+Field = np.arange(numCols * numLines).reshape(numLines, numCols)  # 2D Array mit Zeilen und Kolonen erstellen
 
 
-def Printer():  # Gibt Spielfeld aus nachdem Array Werte mit zugehörigem Zeichen ersetzt wurden
+def Printer():  # Gibt Spielfeld aus, nachdem Array Werte mit zugehörigem Zeichen ersetzt wurden
     print(str(Field).replace(", ", "").replace("[", "").replace("]", "").replace("\n", "").replace(" ", "").replace("0",
                                                                                                                     " ")
           .replace("2", "A").replace("4", "V").replace("6", "I") + "Score: " + str(score) + "  Lives: " + str(lives))
@@ -26,7 +26,7 @@ def Printer():  # Gibt Spielfeld aus nachdem Array Werte mit zugehörigem Zeiche
 np.set_printoptions(threshold=sys.maxsize)  # Array Ausgabe einrichten
 
 np.place(Field, Field >= 0, 0)  # Füllt Array mit 0
-# Gibt Leeres Feld zum Start aus
+# Gibt leeres Feld zum Start aus
 print(
     str(Field).replace(", ", "").replace("[", "").replace("]", "").replace("\n", "").replace(" ", "").replace("0", " "))
 X = 0  # Koordinaten Variablen setzen
